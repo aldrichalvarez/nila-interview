@@ -33,22 +33,27 @@ function jasonsDesiredResult(sentence, limit) {
 
     // check if the length of the current line plus the length of the next word is less than the limit
     if (currentLine.length + wordMaybeWithSpaceOrMaybeNoSpace.length <= limit) {
-        // if current line length + next word length is less than the limit
-        // add the next word to the current line
+      // if current line length + next word length is less than the limit
+      // add the next word to the current line
       currentLine += wordMaybeWithSpaceOrMaybeNoSpace;
     } else {
-        // if current line length + next word length is greater than the limit
-        // create/start a new line
-        // but before we can create/add a new line, we have to push currentLine to the resultingArray (just like saving progress lol)
-        resultingArray.push(currentLine);
-        
-
+      // if current line length + next word length is greater than the limit
+      // create/start a new line
+      // but before we can create/add a new line, we have to push currentLine to the resultingArray (just like saving progress lol)
+      resultingArray.push(currentLine);
+      // to add/create/start a new line, we have to reset the current line
+      // and then we should add the word that exceeded the limit, it would be the first word in the new / next line
+      currentLine = word;
     }
-
-
   }
-
+  // push the remaining line (if there is) to the resulting array
+  if (currentLine.length > 0) {
+    resultingArray.push(currentLine);
+  }
+  //   return the resulting array
   return resultingArray;
 }
 
-console.log(jasonsDesiredResult("Hello, my name is Jason", 10));
+const sentence = "Hello, my name is Jason";
+const givenLimit = 7;
+console.log(jasonsDesiredResult(sentence, givenLimit));
